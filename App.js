@@ -6,13 +6,13 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
-  Image,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import FilterableTable from './components/FilterableTable';
 
-// Lista de datos de ejemplo (Thinking in React)
+// Lista de datos iniciales
 const INITIAL_PRODUCTS = [
   { category: 'Frutas', price: '$1.00', stocked: true, name: 'Manzana' },
   { category: 'Frutas', price: '$1.50', stocked: true, name: 'Fruta del Dragón' },
@@ -36,20 +36,18 @@ export default function App() {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          {/* Cabecera de la Aplicación */}
+          {/* Cabecera con icono nativo vectorial */}
           <View style={styles.header}>
-            <Image
-              source={require('./assets/snack-icon.png')}
-              style={styles.logo}
-              resizeMode="cover"
-            />
+            <View style={styles.iconBadge}>
+              <Ionicons name="cart" size={32} color="#4F46E5" />
+            </View>
             <Text style={styles.title}>Catálogo de Productos</Text>
             <Text style={styles.subtitle}>
               Formulario de filtrado en tiempo real con React Native y useState
             </Text>
           </View>
 
-          {/* Componente Contenedor con Tabla Filtrable */}
+          {/* Componente contenedor con la tabla y buscador */}
           <FilterableTable products={products} />
         </ScrollView>
       </KeyboardAvoidingView>
@@ -74,10 +72,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  logo: {
+  iconBadge: {
     width: 64,
     height: 64,
-    borderRadius: 18,
+    borderRadius: 20,
+    backgroundColor: '#EEF2FF',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 12,
   },
   title: {
