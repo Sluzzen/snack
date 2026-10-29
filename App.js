@@ -36,19 +36,32 @@ export default function App() {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          {/* Cabecera con icono nativo vectorial */}
+          {/* Cabecera Estilizada */}
           <View style={styles.header}>
-            <View style={styles.iconBadge}>
-              <Ionicons name="cart" size={32} color="#4F46E5" />
+            <View style={styles.topBadge}>
+              <View style={styles.liveIndicator} />
+              <Text style={styles.topBadgeText}>EXPO SNACK TEMPLATE</Text>
             </View>
+
+            <View style={styles.iconCircle}>
+              <Ionicons name="storefront" size={28} color="#4F46E5" />
+            </View>
+
             <Text style={styles.title}>Catálogo de Productos</Text>
             <Text style={styles.subtitle}>
-              Formulario de filtrado en tiempo real con React Native y useState
+              Filtro y búsqueda reactiva en tiempo real con useState y StyleSheet
             </Text>
           </View>
 
-          {/* Componente contenedor con la tabla y buscador */}
+          {/* Componente Contenedor */}
           <FilterableTable products={products} />
+
+          {/* Pie de Página */}
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>
+              Diseñado para React Native & Expo Snack
+            </Text>
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -65,33 +78,74 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: 20,
-    paddingTop: 24,
+    paddingTop: 16,
     paddingBottom: 40,
   },
   header: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 24,
   },
-  iconBadge: {
-    width: 64,
-    height: 64,
-    borderRadius: 20,
+  topBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#EEF2FF',
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: '#E0E7FF',
+  },
+  liveIndicator: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    backgroundColor: '#10B981',
+    marginRight: 7,
+  },
+  topBadgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#4F46E5',
+    letterSpacing: 0.8,
+  },
+  iconCircle: {
+    width: 60,
+    height: 60,
+    borderRadius: 18,
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
+    shadowColor: '#4F46E5',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    elevation: 4,
+    borderWidth: 1.5,
+    borderColor: '#EEF2FF',
   },
   title: {
-    fontSize: 24,
-    fontWeight: '700',
+    fontSize: 26,
+    fontWeight: '800',
     color: '#0F172A',
-    marginBottom: 4,
+    marginBottom: 6,
+    letterSpacing: -0.5,
   },
   subtitle: {
     fontSize: 13,
     color: '#64748B',
     textAlign: 'center',
-    maxWidth: 300,
-    lineHeight: 18,
+    maxWidth: 290,
+    lineHeight: 19,
+  },
+  footer: {
+    marginTop: 28,
+    alignItems: 'center',
+  },
+  footerText: {
+    fontSize: 12,
+    color: '#94A3B8',
+    fontWeight: '500',
   },
 });
