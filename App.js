@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import {
   StyleSheet,
-  Text,
-  View,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -93,13 +91,6 @@ export default function App() {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.headerBox}>
-            <Text style={styles.headerTitle}>SISTEMA DE CREDENCIALES</Text>
-            <Text style={styles.headerSubtitle}>
-              FICHA DE REGISTRO Y VISTA PREVIA
-            </Text>
-          </View>
-
           <StudentCard data={submittedData} />
 
           <StudentForm
@@ -127,28 +118,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 32,
-  },
-  headerBox: {
-    borderWidth: 2,
-    borderColor: '#1F2937',
-    borderRadius: 8,
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  headerTitle: {
-    fontSize: 16,
-    fontWeight: '900',
-    color: '#111827',
-    letterSpacing: 1,
-    marginBottom: 2,
-  },
-  headerSubtitle: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#6B7280',
-    letterSpacing: 0.5,
   },
 });
