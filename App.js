@@ -15,7 +15,6 @@ import StudentForm from './components/StudentForm';
 import StudentCard from './components/StudentCard';
 
 export default function App() {
-  // Manejo de estado del formulario con useState
   const [formData, setFormData] = useState({
     nombre: '',
     carrera: '',
@@ -25,7 +24,6 @@ export default function App() {
   const [errors, setErrors] = useState({});
   const [submittedData, setSubmittedData] = useState(null);
 
-  // Manejador para actualizar los campos del formulario
   const handleChangeField = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -40,7 +38,6 @@ export default function App() {
     }
   };
 
-  // Validaciones
   const validateForm = () => {
     let isValid = true;
     let newErrors = {};
@@ -74,14 +71,12 @@ export default function App() {
     return isValid;
   };
 
-  // Generar y mostrar la tarjeta
   const handleSubmit = () => {
     if (!validateForm()) return;
     setSubmittedData({ ...formData });
     Alert.alert('¡Tarjeta Generada!', 'La credencial se ha actualizado arriba.');
   };
 
-  // Limpiar formulario y tarjeta
   const handleReset = () => {
     setFormData({ nombre: '', carrera: '', imagenUrl: '' });
     setErrors({});
@@ -99,7 +94,6 @@ export default function App() {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          {/* Cabecera */}
           <View style={styles.header}>
             <View style={styles.topBadge}>
               <View style={styles.liveIndicator} />
@@ -116,10 +110,8 @@ export default function App() {
             </Text>
           </View>
 
-          {/* 1. Tarjeta visible arriba del formulario */}
           <StudentCard data={submittedData} />
 
-          {/* 2. Formulario de registro */}
           <StudentForm
             formData={formData}
             onChangeField={handleChangeField}

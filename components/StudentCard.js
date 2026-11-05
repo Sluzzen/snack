@@ -21,7 +21,6 @@ export default function StudentCard({ data }) {
 
   return (
     <View style={styles.cardWrapper}>
-      {/* Etiqueta superior */}
       <View style={styles.topBadgeRow}>
         <View style={styles.badge}>
           <Ionicons name="checkmark-circle" size={16} color="#10B981" />
@@ -30,18 +29,14 @@ export default function StudentCard({ data }) {
       </View>
 
       <View style={styles.card}>
-        {/* Banner superior decorativo */}
         <View style={styles.decorativeBanner}>
           <Ionicons name="school" size={24} color="rgba(255,255,255,0.7)" />
         </View>
 
-        {/* Avatar por URL y Nombre */}
         <StudentAvatar nombre={data.nombre} imagenUrl={data.imagenUrl} />
 
-        {/* Badge con la Carrera */}
         <CareerBadge carrera={data.carrera} />
 
-        {/* Pie de la tarjeta */}
         <View style={styles.divider} />
         <View style={styles.footerRow}>
           <View style={styles.statusDot} />

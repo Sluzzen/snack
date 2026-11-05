@@ -14,7 +14,6 @@ export default function StudentForm({
     <View style={styles.formCard}>
       <Text style={styles.formTitle}>Datos del Estudiante</Text>
 
-      {/* Campo: Nombre */}
       <InputField
         label="Nombre Completo"
         icon="person-outline"
@@ -25,7 +24,6 @@ export default function StudentForm({
         autoCapitalize="words"
       />
 
-      {/* Campo: Carrera */}
       <InputField
         label="Carrera Universitaria"
         icon="school-outline"
@@ -36,7 +34,6 @@ export default function StudentForm({
         autoCapitalize="words"
       />
 
-      {/* Campo: Imagen por URL */}
       <InputField
         label="Imagen por URL"
         icon="image-outline"
@@ -48,7 +45,6 @@ export default function StudentForm({
         autoCapitalize="none"
       />
 
-      {/* Botón Principal: Generar Tarjeta */}
       <TouchableOpacity
         style={styles.submitBtn}
         onPress={onSubmit}
@@ -58,7 +54,6 @@ export default function StudentForm({
         <Text style={styles.submitBtnText}>Generar Tarjeta</Text>
       </TouchableOpacity>
 
-      {/* Botón Limpiar */}
       <TouchableOpacity
         style={styles.resetBtn}
         onPress={onReset}

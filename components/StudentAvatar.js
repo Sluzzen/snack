@@ -8,7 +8,6 @@ export default function StudentAvatar({ imagenUrl, nombre }) {
 
   return (
     <View style={styles.container}>
-      {/* Contenedor del avatar */}
       <View style={styles.imageBox}>
         {imagenUrl && !imageError ? (
           <>
@@ -44,7 +43,6 @@ export default function StudentAvatar({ imagenUrl, nombre }) {
         <Text style={styles.errorImgText}>No se pudo cargar la imagen desde la URL</Text>
       )}
 
-      {/* Nombre */}
       <Text style={styles.nameText}>{nombre || 'Nombre del Estudiante'}</Text>
     </View>
   );
@@ -103,4 +101,3 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
-

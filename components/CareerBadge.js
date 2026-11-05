@@ -35,4 +35,3 @@ const styles = StyleSheet.create({
     color: '#6D28D9',
   },
 });
-
