@@ -1,15 +1,15 @@
-# Catálogo de Productos Filtrable en React Native (Expo Snack)
+# Formulario de Registro con Imagen (Expo Snack / React Native)
 
-Proyecto compatible para importar directamente en **[snack.expo.dev](https://snack.expo.dev/)** desde GitHub o clonar localmente.
+Plantilla de formulario moderno desarrollado en React Native con manejo de estado mediante `useState`, validaciones en tiempo real, carga y captura de imágenes con `expo-image-picker` y estilos mediante `StyleSheet`.
+
+Compatible para importar directamente en **[snack.expo.dev](https://snack.expo.dev/)** desde GitHub o usar localmente.
 
 ```text
 Project
 ├── components/
-│   ├── FilterableTable.js
-│   ├── productablet.js
-│   ├── productcategoryrow.js
-│   ├── productrow.js
-│   └── seachbar.js
+│   ├── FormInput.js
+│   ├── ImagePickerField.js
+│   └── SummaryCard.js
 ├── App.js
 ├── package.json
 └── README.md
@@ -17,11 +17,21 @@ Project
 
 ---
 
-## 🧩 Descripción de Componentes
+## 📋 Campos del Formulario
 
-1. **`components/seachbar.js`**: Formulario de búsqueda con `TextInput` y filtro de disponibilidad con `Switch`.
-2. **`components/productcategoryrow.js`**: Cabecera para separar por categorías de productos.
-3. **`components/productrow.js`**: Fila con el nombre, precio e indicador de stock.
-4. **`components/productablet.js`**: Contenedor de la tabla que organiza y renderiza las filas según los filtros aplicados.
-5. **`components/FilterableTable.js`**: Componente que controla el estado con `useState` (`filterText`, `inStockOnly`).
-6. **`App.js`**: Entrada principal de la aplicación.
+1. **Nombre**: Validación de campo requerido y longitud mínima.
+2. **Apellido**: Validación de campo requerido y longitud mínima.
+3. **Cédula**: Teclado numérico con validación de longitud.
+4. **Carga de Imagen**:
+   - Selección desde la **galería** con permisos nativos.
+   - Captura directa con la **cámara**.
+   - Vista previa con opciones para cambiar o eliminar la fotografía.
+
+---
+
+## 🧩 Componentes
+
+- **`components/FormInput.js`**: Input estilizado y reutilizable con iconos (`Ionicons`), labels y mensajes de error reactivos.
+- **`components/ImagePickerField.js`**: Selector de imágenes modular utilizando `expo-image-picker`, con zona interactiva dashed y previsualización circular tipo avatar.
+- **`components/SummaryCard.js`**: Tarjeta de confirmación con los datos validados y la imagen guardada en el estado.
+- **`App.js`**: Manejo centralizado del estado (`formData`, `errors`, `loading`, `submittedData`) con `useState`.
