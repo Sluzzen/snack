@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,108 +6,13 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import FormInput from './components/FormInput';
-import StudentCard from './components/StudentCard';
+import FilterableTable from './components/FilterableTable';
 
 export default function App() {
-  // Manejo de estado del formulario con useState
-  const [formData, setFormData] = useState({
-    nombre: '',
-    carrera: '',
-    imagenUrl: '',
-  });
-
-  const [errors, setErrors] = useState({});
-  const [submittedData, setSubmittedData] = useState(null);
-
-  // Manejador genérico para actualizar campos
-  const handleChange = (field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-
-    if (errors[field]) {
-      setErrors((prev) => ({
-        ...prev,
-        [field]: null,
-      }));
-    }
-  };
-
-  // Validaciones del formulario
-  const validateForm = () => {
-    let isValid = true;
-    let newErrors = {};
-
-    if (!formData.nombre.trim()) {
-      newErrors.nombre = 'El nombre es obligatorio';
-      isValid = false;
-    } else if (formData.nombre.trim().length < 2) {
-      newErrors.nombre = 'Debe tener al menos 2 caracteres';
-      isValid = false;
-    }
-
-    if (!formData.carrera.trim()) {
-      newErrors.carrera = 'La carrera es obligatoria';
-      isValid = false;
-    } else if (formData.carrera.trim().length < 3) {
-      newErrors.carrera = 'Debe tener al menos 3 caracteres';
-      isValid = false;
-    }
-
-    const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|webp|svg|gif)(\?.*)?)$/i;
-    const isHttp = /^https?:\/\/.+/i;
-
-    if (!formData.imagenUrl.trim()) {
-      newErrors.imagenUrl = 'La URL de la imagen es obligatoria';
-      isValid = false;
-    } else if (!isHttp.test(formData.imagenUrl.trim())) {
-      newErrors.imagenUrl = 'Debe ser una URL válida (http:// o https://)';
-      isValid = false;
-    }
-
-    setErrors(newErrors);
-    return isValid;
-  };
-
-  // Enviar formulario
-  const handleSubmit = () => {
-    if (!validateForm()) return;
-
-    setSubmittedData({ ...formData });
-    Alert.alert('¡Tarjeta Generada!', 'Los datos se han guardado en el estado.');
-  };
-
-  // Cargar datos de ejemplo rápidos
-  const handleLoadDemo = () => {
-    const demoData = {
-      nombre: 'Elena Rodríguez',
-      carrera: 'Ingeniería en Sistemas',
-      imagenUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
-    };
-    setFormData(demoData);
-    setErrors({});
-    setSubmittedData(demoData);
-  };
-
-  // Limpiar formulario
-  const handleReset = () => {
-    setFormData({
-      nombre: '',
-      carrera: '',
-      imagenUrl: '',
-    });
-    setErrors({});
-    setSubmittedData(null);
-  };
-
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
@@ -130,79 +35,14 @@ export default function App() {
               <Ionicons name="id-card" size={28} color="#4F46E5" />
             </View>
 
-            <Text style={styles.title}>Ficha Estudiantil</Text>
+            <Text style={styles.title}>Ficha de Usuario</Text>
             <Text style={styles.subtitle}>
-              Formulario reactivo con useState: Nombre, Carrera e Imagen por URL
+              Formulario con Nombre, Carrera, Imagen por URL y Tarjeta
             </Text>
           </View>
 
-          {/* Tarjeta del Formulario */}
-          <View style={styles.formCard}>
-            {/* Campo: Nombre */}
-            <FormInput
-              label="Nombre"
-              icon="person-outline"
-              placeholder="Ej. Juan Pérez"
-              value={formData.nombre}
-              onChangeText={(val) => handleChange('nombre', val)}
-              error={errors.nombre}
-            />
-
-            {/* Campo: Carrera */}
-            <FormInput
-              label="Carrera"
-              icon="school-outline"
-              placeholder="Ej. Ingeniería de Software"
-              value={formData.carrera}
-              onChangeText={(val) => handleChange('carrera', val)}
-              error={errors.carrera}
-            />
-
-            {/* Campo: Imagen por URL */}
-            <FormInput
-              label="Imagen por URL"
-              icon="image-outline"
-              placeholder="https://ejemplo.com/foto.jpg"
-              keyboardType="url"
-              autoCapitalize="none"
-              value={formData.imagenUrl}
-              onChangeText={(val) => handleChange('imagenUrl', val)}
-              error={errors.imagenUrl}
-            />
-
-            {/* Botón de Enviar */}
-            <TouchableOpacity
-              style={styles.submitButton}
-              onPress={handleSubmit}
-              activeOpacity={0.8}
-            >
-              <Ionicons name="card-outline" size={20} color="#FFFFFF" />
-              <Text style={styles.submitButtonText}>Generar Tarjeta</Text>
-            </TouchableOpacity>
-
-            {/* Fila de acciones secundarias */}
-            <View style={styles.actionRow}>
-              <TouchableOpacity
-                style={styles.demoButton}
-                onPress={handleLoadDemo}
-                activeOpacity={0.7}
-              >
-                <Ionicons name="sparkles-outline" size={16} color="#4F46E5" />
-                <Text style={styles.demoButtonText}>Cargar Ejemplo</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.resetButton}
-                onPress={handleReset}
-                activeOpacity={0.7}
-              >
-                <Text style={styles.resetButtonText}>Limpiar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {/* Tarjeta de visualización */}
-          <StudentCard data={submittedData} />
+          {/* Componente principal con Formulario y Tarjeta */}
+          <FilterableTable />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -279,67 +119,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     maxWidth: 320,
     lineHeight: 18,
-  },
-  formCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 20,
-    shadowColor: '#4F46E5',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.06,
-    shadowRadius: 16,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-  },
-  submitButton: {
-    flexDirection: 'row',
-    backgroundColor: '#4F46E5',
-    borderRadius: 14,
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 8,
-    marginTop: 6,
-    shadowColor: '#4F46E5',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 3,
-  },
-  submitButtonText: {
-    color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: '700',
-  },
-  actionRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 14,
-    paddingHorizontal: 4,
-  },
-  demoButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    backgroundColor: '#EEF2FF',
-    borderRadius: 10,
-  },
-  demoButtonText: {
-    color: '#4F46E5',
-    fontSize: 13,
-    fontWeight: '700',
-  },
-  resetButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-  },
-  resetButtonText: {
-    color: '#64748B',
-    fontSize: 13,
-    fontWeight: '600',
   },
 });
