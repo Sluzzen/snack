@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function productrow({ nombre, imagenUrl }) {
+export default function StudentAvatar({ imagenUrl, nombre }) {
   const [imageLoading, setImageLoading] = useState(false);
   const [imageError, setImageError] = useState(false);
 
   return (
     <View style={styles.container}>
-      {/* Avatar circular con imagen remota por URL */}
+      {/* Contenedor del avatar */}
       <View style={styles.imageBox}>
         {imagenUrl && !imageError ? (
           <>

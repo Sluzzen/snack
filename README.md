@@ -1,28 +1,27 @@
-# Formulario con Tarjeta de Perfil en Expo Snack
+# Plantilla Expo Snack: Formulario y Tarjeta de Perfil
 
-Este proyecto respeta la estructura modular de componentes para **Expo Snack**:
+Proyecto desarrollado en **React Native** con componentes modulares con nombres descriptivos y claros, manejo de estado centralizado con `useState` y estilos limpios mediante `StyleSheet`.
 
 ```text
 Project
 ├── components/
-│   ├── FilterableTable.js      # Componente contenedor que maneja el useState y la lógica
-│   ├── productablet.js         # Tarjeta de perfil completa que renderiza toda la información
-│   ├── productcategoryrow.js   # Fila/Badge que presenta la Carrera
-│   ├── productrow.js           # Fila con el Avatar (Imagen por URL) y el Nombre
-│   └── seachbar.js             # Formulario con los inputs de Nombre, Carrera e Imagen URL
-├── App.js                      # Entrada principal con SafeAreaView y diseño responsive
-├── package.json                # Dependencias (@expo/vector-icons)
+│   ├── InputField.js      # Input reutilizable con label, icono y manejo de errores
+│   ├── StudentForm.js     # Formulario con los campos Nombre, Carrera e Imagen URL
+│   ├── StudentAvatar.js   # Avatar circular que procesa y muestra la imagen remota por URL
+│   ├── CareerBadge.js     # Etiqueta / Pill estilizada para la carrera
+│   └── StudentCard.js     # Tarjeta credencial completa que integra avatar, datos y diseño
+├── App.js                 # Vista principal con estado useState y lógica del formulario
+├── package.json           # Dependencias limpias (@expo/vector-icons)
 └── README.md
 ```
 
 ---
 
-## 📋 Campos del Formulario
+## 🧩 Descripción de Componentes
 
-1. **Nombre**: Nombre completo del usuario o estudiante.
-2. **Carrera**: Especialidad o carrera cursada.
-3. **Imagen por URL**: URL pública directa (`http://` o `https://`).
-4. **Tarjeta de visualización**:
-   - Avatar circular con carga remota por URL.
-   - Indicador de carga (`ActivityIndicator`) y fallback si falla la imagen.
-   - Nombre destacado y badge de la carrera.
+- **`InputField.js`**: Componente atómico de entrada de texto. Incluye iconos temáticos de `@expo/vector-icons`, estados de error y validaciones visuales.
+- **`StudentForm.js`**: Ensambla los campos de entrada (**Nombre**, **Carrera** e **Imagen por URL**), botón de acción *"Generar Tarjeta"*, y accesos rápidos *"Cargar Ejemplo"* y *"Limpiar"*.
+- **`StudentAvatar.js`**: Renderiza la imagen remota por URL con `ActivityIndicator` durante la carga y fallback en caso de error en el enlace.
+- **`CareerBadge.js`**: Presenta la especialidad / carrera en un badge con iconos violeta.
+- **`StudentCard.js`**: La tarjeta final que une el avatar, nombre y carrera en un diseño tipo credencial.
+- **`App.js`**: Maneja el estado global del formulario y las validaciones correspondientes.

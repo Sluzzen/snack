@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import ProductRow from './productrow';
-import ProductCategoryRow from './productcategoryrow';
+import StudentAvatar from './StudentAvatar';
+import CareerBadge from './CareerBadge';
 
-export default function productablet({ data }) {
+export default function StudentCard({ data }) {
   if (!data) return null;
 
   return (
@@ -13,7 +13,7 @@ export default function productablet({ data }) {
       <View style={styles.topBadgeRow}>
         <View style={styles.badge}>
           <Ionicons name="card" size={16} color="#4F46E5" />
-          <Text style={styles.badgeText}>Ficha Generada</Text>
+          <Text style={styles.badgeText}>Credencial Estudiantil</Text>
         </View>
       </View>
 
@@ -23,11 +23,11 @@ export default function productablet({ data }) {
           <Ionicons name="school" size={24} color="rgba(255,255,255,0.7)" />
         </View>
 
-        {/* Fila del Estudiante (Avatar + Nombre) */}
-        <ProductRow nombre={data.nombre} imagenUrl={data.imagenUrl} />
+        {/* Avatar por URL y Nombre */}
+        <StudentAvatar nombre={data.nombre} imagenUrl={data.imagenUrl} />
 
-        {/* Fila de la Categoría/Carrera */}
-        <ProductCategoryRow carrera={data.carrera} />
+        {/* Badge con la Carrera */}
+        <CareerBadge carrera={data.carrera} />
 
         {/* Pie de la tarjeta */}
         <View style={styles.divider} />

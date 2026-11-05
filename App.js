@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,11 +8,99 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import FilterableTable from './components/FilterableTable';
+import StudentForm from './components/StudentForm';
+import StudentCard from './components/StudentCard';
 
 export default function App() {
+  // Manejo de estado del formulario con useState
+  const [formData, setFormData] = useState({
+    nombre: '',
+    carrera: '',
+    imagenUrl: '',
+  });
+
+  const [errors, setErrors] = useState({});
+  const [submittedData, setSubmittedData] = useState(null);
+
+  // Manejador dinámico para actualizar campos del formulario
+  const handleChangeField = (field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+
+    // Limpia el error del campo al escribir
+    if (errors[field]) {
+      setErrors((prev) => ({
+        ...prev,
+        [field]: null,
+      }));
+    }
+  };
+
+  // Validaciones del formulario
+  const validateForm = () => {
+    let isValid = true;
+    let newErrors = {};
+
+    if (!formData.nombre.trim()) {
+      newErrors.nombre = 'El nombre es obligatorio';
+      isValid = false;
+    } else if (formData.nombre.trim().length < 2) {
+      newErrors.nombre = 'El nombre debe tener al menos 2 caracteres';
+      isValid = false;
+    }
+
+    if (!formData.carrera.trim()) {
+      newErrors.carrera = 'La carrera es obligatoria';
+      isValid = false;
+    } else if (formData.carrera.trim().length < 3) {
+      newErrors.carrera = 'La carrera debe tener al menos 3 caracteres';
+      isValid = false;
+    }
+
+    const isHttp = /^https?:\/\/.+/i;
+    if (!formData.imagenUrl.trim()) {
+      newErrors.imagenUrl = 'La URL de la imagen es obligatoria';
+      isValid = false;
+    } else if (!isHttp.test(formData.imagenUrl.trim())) {
+      newErrors.imagenUrl = 'Debe ser una URL válida (http:// o https://)';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
+  // Generar y mostrar la tarjeta con los datos ingresados
+  const handleSubmit = () => {
+    if (!validateForm()) return;
+    setSubmittedData({ ...formData });
+    Alert.alert('¡Tarjeta Generada!', 'La credencial se ha creado con éxito.');
+  };
+
+  // Cargar datos de prueba
+  const handleLoadDemo = () => {
+    const demo = {
+      nombre: 'Elena Rodríguez',
+      carrera: 'Ingeniería en Computación',
+      imagenUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+    };
+    setFormData(demo);
+    setErrors({});
+    setSubmittedData(demo);
+  };
+
+  // Limpiar formulario y tarjeta
+  const handleReset = () => {
+    setFormData({ nombre: '', carrera: '', imagenUrl: '' });
+    setErrors({});
+    setSubmittedData(null);
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
@@ -24,7 +112,7 @@ export default function App() {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          {/* Cabecera */}
+          {/* Encabezado */}
           <View style={styles.header}>
             <View style={styles.topBadge}>
               <View style={styles.liveIndicator} />
@@ -35,14 +123,24 @@ export default function App() {
               <Ionicons name="id-card" size={28} color="#4F46E5" />
             </View>
 
-            <Text style={styles.title}>Ficha de Usuario</Text>
+            <Text style={styles.title}>Credencial Estudiantil</Text>
             <Text style={styles.subtitle}>
-              Formulario con Nombre, Carrera, Imagen por URL y Tarjeta
+              Formulario con useState: Nombre, Carrera, Imagen por URL y Tarjeta
             </Text>
           </View>
 
-          {/* Componente principal con Formulario y Tarjeta */}
-          <FilterableTable />
+          {/* Formulario modular */}
+          <StudentForm
+            formData={formData}
+            onChangeField={handleChangeField}
+            onSubmit={handleSubmit}
+            onReset={handleReset}
+            onLoadDemo={handleLoadDemo}
+            errors={errors}
+          />
+
+          {/* Tarjeta donde se muestra toda la información */}
+          <StudentCard data={submittedData} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
