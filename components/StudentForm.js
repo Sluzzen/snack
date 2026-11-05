@@ -8,11 +8,12 @@ export default function StudentForm({
   onChangeField,
   onSubmit,
   onReset,
-  onLoadDemo,
   errors = {},
 }) {
   return (
     <View style={styles.formCard}>
+      <Text style={styles.formTitle}>Datos del Estudiante</Text>
+
       {/* Campo: Nombre */}
       <InputField
         label="Nombre Completo"
@@ -57,25 +58,14 @@ export default function StudentForm({
         <Text style={styles.submitBtnText}>Generar Tarjeta</Text>
       </TouchableOpacity>
 
-      {/* Acciones Secundarias */}
-      <View style={styles.actionsRow}>
-        <TouchableOpacity
-          style={styles.demoBtn}
-          onPress={onLoadDemo}
-          activeOpacity={0.7}
-        >
-          <Ionicons name="sparkles-outline" size={16} color="#4F46E5" />
-          <Text style={styles.demoBtnText}>Cargar Ejemplo</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.resetBtn}
-          onPress={onReset}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.resetBtnText}>Limpiar</Text>
-        </TouchableOpacity>
-      </View>
+      {/* Botón Limpiar */}
+      <TouchableOpacity
+        style={styles.resetBtn}
+        onPress={onReset}
+        activeOpacity={0.7}
+      >
+        <Text style={styles.resetBtnText}>Limpiar Formulario</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -92,6 +82,13 @@ const styles = StyleSheet.create({
     elevation: 3,
     borderWidth: 1,
     borderColor: '#E2E8F0',
+    marginTop: 10,
+  },
+  formTitle: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#0F172A',
+    marginBottom: 16,
   },
   submitBtn: {
     flexDirection: 'row',
@@ -101,7 +98,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 8,
-    marginTop: 6,
+    marginTop: 8,
     shadowColor: '#4F46E5',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
@@ -113,30 +110,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
   },
-  actionsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: 14,
-    paddingHorizontal: 4,
-  },
-  demoBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    backgroundColor: '#EEF2FF',
-    borderRadius: 10,
-  },
-  demoBtnText: {
-    color: '#4F46E5',
-    fontSize: 13,
-    fontWeight: '700',
-  },
   resetBtn: {
-    paddingVertical: 6,
-    paddingHorizontal: 10,
+    marginTop: 12,
+    paddingVertical: 8,
+    alignItems: 'center',
   },
   resetBtnText: {
     color: '#64748B',

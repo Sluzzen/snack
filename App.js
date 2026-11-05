@@ -25,14 +25,13 @@ export default function App() {
   const [errors, setErrors] = useState({});
   const [submittedData, setSubmittedData] = useState(null);
 
-  // Manejador dinámico para actualizar campos del formulario
+  // Manejador para actualizar los campos del formulario
   const handleChangeField = (field, value) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
 
-    // Limpia el error del campo al escribir
     if (errors[field]) {
       setErrors((prev) => ({
         ...prev,
@@ -41,7 +40,7 @@ export default function App() {
     }
   };
 
-  // Validaciones del formulario
+  // Validaciones
   const validateForm = () => {
     let isValid = true;
     let newErrors = {};
@@ -75,23 +74,11 @@ export default function App() {
     return isValid;
   };
 
-  // Generar y mostrar la tarjeta con los datos ingresados
+  // Generar y mostrar la tarjeta
   const handleSubmit = () => {
     if (!validateForm()) return;
     setSubmittedData({ ...formData });
-    Alert.alert('¡Tarjeta Generada!', 'La credencial se ha creado con éxito.');
-  };
-
-  // Cargar datos de prueba
-  const handleLoadDemo = () => {
-    const demo = {
-      nombre: 'Elena Rodríguez',
-      carrera: 'Ingeniería en Computación',
-      imagenUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
-    };
-    setFormData(demo);
-    setErrors({});
-    setSubmittedData(demo);
+    Alert.alert('¡Tarjeta Generada!', 'La credencial se ha actualizado arriba.');
   };
 
   // Limpiar formulario y tarjeta
@@ -112,7 +99,7 @@ export default function App() {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          {/* Encabezado */}
+          {/* Cabecera */}
           <View style={styles.header}>
             <View style={styles.topBadge}>
               <View style={styles.liveIndicator} />
@@ -125,22 +112,21 @@ export default function App() {
 
             <Text style={styles.title}>Credencial Estudiantil</Text>
             <Text style={styles.subtitle}>
-              Formulario con useState: Nombre, Carrera, Imagen por URL y Tarjeta
+              Completa el formulario para generar tu tarjeta de perfil arriba
             </Text>
           </View>
 
-          {/* Formulario modular */}
+          {/* 1. Tarjeta visible arriba del formulario */}
+          <StudentCard data={submittedData} />
+
+          {/* 2. Formulario de registro */}
           <StudentForm
             formData={formData}
             onChangeField={handleChangeField}
             onSubmit={handleSubmit}
             onReset={handleReset}
-            onLoadDemo={handleLoadDemo}
             errors={errors}
           />
-
-          {/* Tarjeta donde se muestra toda la información */}
-          <StudentCard data={submittedData} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -162,7 +148,7 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 12,
   },
   topBadge: {
     flexDirection: 'row',

@@ -5,15 +5,27 @@ import StudentAvatar from './StudentAvatar';
 import CareerBadge from './CareerBadge';
 
 export default function StudentCard({ data }) {
-  if (!data) return null;
+  if (!data) {
+    return (
+      <View style={styles.emptyCard}>
+        <View style={styles.emptyIconCircle}>
+          <Ionicons name="card-outline" size={28} color="#94A3B8" />
+        </View>
+        <Text style={styles.emptyTitle}>Tarjeta no generada</Text>
+        <Text style={styles.emptySubtitle}>
+          Ingresa tus datos abajo y presiona "Generar Tarjeta" para visualizarla aquí.
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.cardWrapper}>
       {/* Etiqueta superior */}
       <View style={styles.topBadgeRow}>
         <View style={styles.badge}>
-          <Ionicons name="card" size={16} color="#4F46E5" />
-          <Text style={styles.badgeText}>Credencial Estudiantil</Text>
+          <Ionicons name="checkmark-circle" size={16} color="#10B981" />
+          <Text style={styles.badgeText}>Credencial Activa</Text>
         </View>
       </View>
 
@@ -41,29 +53,60 @@ export default function StudentCard({ data }) {
 }
 
 const styles = StyleSheet.create({
+  emptyCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderStyle: 'dashed',
+    borderColor: '#CBD5E1',
+    paddingVertical: 24,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  emptyIconCircle: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    backgroundColor: '#F1F5F9',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  emptyTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#334155',
+    marginBottom: 4,
+  },
+  emptySubtitle: {
+    fontSize: 12,
+    color: '#94A3B8',
+    textAlign: 'center',
+    lineHeight: 17,
+  },
   cardWrapper: {
-    marginTop: 24,
-    marginBottom: 20,
+    marginBottom: 16,
   },
   topBadgeRow: {
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   badge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: '#EEF2FF',
+    backgroundColor: '#DCFCE7',
     paddingVertical: 5,
     paddingHorizontal: 12,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#C7D2FE',
+    borderColor: '#BBF7D0',
   },
   badgeText: {
     fontSize: 12,
     fontWeight: '700',
-    color: '#4F46E5',
+    color: '#15803D',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
