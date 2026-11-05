@@ -1,37 +1,37 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function CareerBadge({ carrera }) {
   return (
-    <View style={styles.container}>
-      <View style={styles.badge}>
-        <Ionicons name="ribbon-outline" size={16} color="#6D28D9" />
-        <Text style={styles.text}>{carrera || 'Sin carrera asignada'}</Text>
-      </View>
+    <View style={styles.box}>
+      <Text style={styles.label}>CARRERA</Text>
+      <Text style={styles.value}>{carrera || '---'}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  box: {
+    width: '100%',
+    borderWidth: 1.5,
+    borderColor: '#E5E7EB',
+    borderRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    backgroundColor: '#F9FAFB',
     alignItems: 'center',
-    marginVertical: 4,
+    marginBottom: 8,
   },
-  badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    backgroundColor: '#F5F3FF',
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: '#DDD6FE',
-  },
-  text: {
-    fontSize: 14,
+  label: {
+    fontSize: 11,
     fontWeight: '700',
-    color: '#6D28D9',
+    color: '#6B7280',
+    letterSpacing: 0.5,
+    marginBottom: 2,
+  },
+  value: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#1D4ED8',
   },
 });

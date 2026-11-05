@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Image, ActivityIndicator } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function StudentAvatar({ imagenUrl, nombre }) {
   const [imageLoading, setImageLoading] = useState(false);
@@ -8,12 +7,12 @@ export default function StudentAvatar({ imagenUrl, nombre }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.imageBox}>
+      <View style={styles.imageFrame}>
         {imagenUrl && !imageError ? (
           <>
             <Image
               source={{ uri: imagenUrl }}
-              style={styles.avatar}
+              style={styles.image}
               resizeMode="cover"
               onLoadStart={() => setImageLoading(true)}
               onLoadEnd={() => setImageLoading(false)}
@@ -23,27 +22,28 @@ export default function StudentAvatar({ imagenUrl, nombre }) {
               }}
             />
             {imageLoading && (
-              <View style={styles.loadingOverlay}>
-                <ActivityIndicator size="small" color="#4F46E5" />
+              <View style={styles.loadingBox}>
+                <ActivityIndicator size="small" color="#2563EB" />
               </View>
             )}
           </>
         ) : (
-          <View style={styles.avatarFallback}>
-            <Ionicons
-              name={imageError ? 'alert-circle-outline' : 'person'}
-              size={42}
-              color={imageError ? '#EF4444' : '#818CF8'}
-            />
+          <View style={styles.placeholderBox}>
+            <Text style={styles.placeholderText}>
+              {imageError ? 'ERROR URL' : 'FOTO'}
+            </Text>
           </View>
         )}
       </View>
 
-      {imageError && (
-        <Text style={styles.errorImgText}>No se pudo cargar la imagen desde la URL</Text>
-      )}
+      {imageError ? (
+        <Text style={styles.errorText}>No se pudo cargar la imagen</Text>
+      ) : null}
 
-      <Text style={styles.nameText}>{nombre || 'Nombre del Estudiante'}</Text>
+      <View style={styles.nameBox}>
+        <Text style={styles.nameLabel}>NOMBRE</Text>
+        <Text style={styles.nameValue}>{nombre || '---'}</Text>
+      </View>
     </View>
   );
 }
@@ -51,53 +51,69 @@ export default function StudentAvatar({ imagenUrl, nombre }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginTop: -45,
-    marginBottom: 6,
+    marginBottom: 12,
   },
-  imageBox: {
-    width: 96,
-    height: 96,
-    borderRadius: 48,
-    borderWidth: 4,
-    borderColor: '#FFFFFF',
-    backgroundColor: '#F1F5F9',
+  imageFrame: {
+    width: 110,
+    height: 110,
+    borderWidth: 2,
+    borderColor: '#1F2937',
+    borderRadius: 8,
+    backgroundColor: '#F3F4F6',
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 4,
   },
-  avatar: {
+  image: {
     width: '100%',
     height: '100%',
   },
-  loadingOverlay: {
+  loadingBox: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  avatarFallback: {
+  placeholderBox: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#EEF2FF',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#E5E7EB',
   },
-  errorImgText: {
-    fontSize: 11,
-    color: '#EF4444',
-    marginTop: 6,
-    fontWeight: '500',
-  },
-  nameText: {
-    fontSize: 22,
+  placeholderText: {
+    fontSize: 12,
     fontWeight: '800',
-    color: '#0F172A',
-    textAlign: 'center',
-    marginTop: 10,
+    color: '#6B7280',
+    letterSpacing: 1,
+  },
+  errorText: {
+    fontSize: 11,
+    color: '#DC2626',
+    marginTop: 4,
+    fontWeight: '700',
+  },
+  nameBox: {
+    width: '100%',
+    borderWidth: 1.5,
+    borderColor: '#E5E7EB',
+    borderRadius: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginTop: 12,
+    backgroundColor: '#F9FAFB',
+    alignItems: 'center',
+  },
+  nameLabel: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#6B7280',
+    letterSpacing: 0.5,
+    marginBottom: 2,
+  },
+  nameValue: {
+    fontSize: 17,
+    fontWeight: '800',
+    color: '#111827',
   },
 });

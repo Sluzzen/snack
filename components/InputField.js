@@ -1,10 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function InputField({
   label,
-  icon,
   value,
   onChangeText,
   placeholder,
@@ -13,67 +11,52 @@ export default function InputField({
   autoCapitalize = 'sentences',
 }) {
   return (
-    <View style={styles.group}>
+    <View style={styles.box}>
       <Text style={styles.label}>{label}</Text>
-      <View style={[styles.inputWrapper, error ? styles.inputWrapperError : null]}>
-        <Ionicons
-          name={icon}
-          size={20}
-          color={error ? '#EF4444' : '#6366F1'}
-          style={styles.icon}
-        />
-        <TextInput
-          style={styles.textInput}
-          value={value}
-          onChangeText={onChangeText}
-          placeholder={placeholder}
-          placeholderTextColor="#94A3B8"
-          keyboardType={keyboardType}
-          autoCapitalize={autoCapitalize}
-        />
-      </View>
+      <TextInput
+        style={[styles.input, error ? styles.inputError : null]}
+        value={value}
+        onChangeText={onChangeText}
+        placeholder={placeholder}
+        placeholderTextColor="#9CA3AF"
+        keyboardType={keyboardType}
+        autoCapitalize={autoCapitalize}
+      />
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  group: {
-    marginBottom: 16,
+  box: {
+    marginBottom: 14,
   },
   label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#334155',
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#1F2937',
     marginBottom: 6,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
-  inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#F8FAFC',
+  input: {
+    backgroundColor: '#FFFFFF',
     borderWidth: 1.5,
-    borderColor: '#E2E8F0',
-    borderRadius: 14,
-    paddingHorizontal: 14,
-    height: 50,
-  },
-  inputWrapperError: {
-    borderColor: '#EF4444',
-    backgroundColor: '#FEF2F2',
-  },
-  icon: {
-    marginRight: 10,
-  },
-  textInput: {
-    flex: 1,
+    borderColor: '#D1D5DB',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    height: 46,
     fontSize: 15,
-    color: '#0F172A',
-    fontWeight: '500',
+    color: '#111827',
+  },
+  inputError: {
+    borderColor: '#DC2626',
+    backgroundColor: '#FEF2F2',
   },
   errorText: {
     fontSize: 12,
-    color: '#EF4444',
+    color: '#DC2626',
     marginTop: 4,
-    fontWeight: '500',
+    fontWeight: '600',
   },
 });

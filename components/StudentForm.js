@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import InputField from './InputField';
 
 export default function StudentForm({
@@ -11,108 +10,113 @@ export default function StudentForm({
   errors = {},
 }) {
   return (
-    <View style={styles.formCard}>
-      <Text style={styles.formTitle}>Datos del Estudiante</Text>
+    <View style={styles.formContainer}>
+      <View style={styles.formHeader}>
+        <Text style={styles.formHeaderText}>FORMULARIO DE REGISTRO</Text>
+      </View>
 
-      <InputField
-        label="Nombre Completo"
-        icon="person-outline"
-        placeholder="Ej. Juan Pérez"
-        value={formData.nombre}
-        onChangeText={(val) => onChangeField('nombre', val)}
-        error={errors.nombre}
-        autoCapitalize="words"
-      />
+      <View style={styles.formBody}>
+        <InputField
+          label="Nombre Completo"
+          placeholder="Ej. Juan Pérez"
+          value={formData.nombre}
+          onChangeText={(val) => onChangeField('nombre', val)}
+          error={errors.nombre}
+          autoCapitalize="words"
+        />
 
-      <InputField
-        label="Carrera Universitaria"
-        icon="school-outline"
-        placeholder="Ej. Ingeniería de Sistemas"
-        value={formData.carrera}
-        onChangeText={(val) => onChangeField('carrera', val)}
-        error={errors.carrera}
-        autoCapitalize="words"
-      />
+        <InputField
+          label="Carrera Universitaria"
+          placeholder="Ej. Ingeniería de Sistemas"
+          value={formData.carrera}
+          onChangeText={(val) => onChangeField('carrera', val)}
+          error={errors.carrera}
+          autoCapitalize="words"
+        />
 
-      <InputField
-        label="Imagen por URL"
-        icon="image-outline"
-        placeholder="https://ejemplo.com/foto.jpg"
-        value={formData.imagenUrl}
-        onChangeText={(val) => onChangeField('imagenUrl', val)}
-        error={errors.imagenUrl}
-        keyboardType="url"
-        autoCapitalize="none"
-      />
+        <InputField
+          label="Imagen por URL"
+          placeholder="https://ejemplo.com/foto.jpg"
+          value={formData.imagenUrl}
+          onChangeText={(val) => onChangeField('imagenUrl', val)}
+          error={errors.imagenUrl}
+          keyboardType="url"
+          autoCapitalize="none"
+        />
 
-      <TouchableOpacity
-        style={styles.submitBtn}
-        onPress={onSubmit}
-        activeOpacity={0.8}
-      >
-        <Ionicons name="card-outline" size={20} color="#FFFFFF" />
-        <Text style={styles.submitBtnText}>Generar Tarjeta</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.submitBtn}
+          onPress={onSubmit}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.submitBtnText}>GENERAR TARJETA</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.resetBtn}
-        onPress={onReset}
-        activeOpacity={0.7}
-      >
-        <Text style={styles.resetBtnText}>Limpiar Formulario</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.resetBtn}
+          onPress={onReset}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.resetBtnText}>LIMPIAR FORMULARIO</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  formCard: {
+  formContainer: {
+    borderWidth: 2,
+    borderColor: '#1F2937',
+    borderRadius: 8,
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 20,
-    shadowColor: '#4F46E5',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.06,
-    shadowRadius: 16,
-    elevation: 3,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    marginTop: 10,
+    overflow: 'hidden',
   },
-  formTitle: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: '#0F172A',
-    marginBottom: 16,
+  formHeader: {
+    backgroundColor: '#1F2937',
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    alignItems: 'center',
+  },
+  formHeaderText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 1,
+  },
+  formBody: {
+    padding: 16,
   },
   submitBtn: {
-    flexDirection: 'row',
-    backgroundColor: '#4F46E5',
-    borderRadius: 14,
-    height: 50,
+    backgroundColor: '#2563EB',
+    borderWidth: 1.5,
+    borderColor: '#1D4ED8',
+    borderRadius: 6,
+    height: 46,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
     marginTop: 8,
-    shadowColor: '#4F46E5',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 3,
   },
   submitBtnText: {
     color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: '700',
+    fontSize: 14,
+    fontWeight: '800',
+    letterSpacing: 0.5,
   },
   resetBtn: {
-    marginTop: 12,
-    paddingVertical: 8,
+    borderWidth: 1.5,
+    borderColor: '#9CA3AF',
+    borderRadius: 6,
+    height: 42,
+    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10,
+    backgroundColor: '#F3F4F6',
   },
   resetBtnText: {
-    color: '#64748B',
+    color: '#4B5563',
     fontSize: 13,
-    fontWeight: '600',
+    fontWeight: '700',
+    letterSpacing: 0.5,
   },
 });
