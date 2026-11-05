@@ -10,14 +10,18 @@ export default function FormInput({
   placeholder,
   error,
   keyboardType = 'default',
-  maxLength,
-  autoCapitalize = 'words',
+  autoCapitalize = 'sentences',
 }) {
   return (
     <View style={styles.group}>
       <Text style={styles.label}>{label}</Text>
       <View style={[styles.inputContainer, error ? styles.inputError : null]}>
-        <Ionicons name={icon} size={20} color={error ? '#EF4444' : '#6366F1'} style={styles.icon} />
+        <Ionicons
+          name={icon}
+          size={20}
+          color={error ? '#EF4444' : '#6366F1'}
+          style={styles.icon}
+        />
         <TextInput
           style={styles.input}
           value={value}
@@ -25,7 +29,6 @@ export default function FormInput({
           placeholder={placeholder}
           placeholderTextColor="#94A3B8"
           keyboardType={keyboardType}
-          maxLength={maxLength}
           autoCapitalize={autoCapitalize}
         />
       </View>

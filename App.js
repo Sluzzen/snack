@@ -9,28 +9,24 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  ActivityIndicator,
   Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import FormInput from './components/FormInput';
-import ImagePickerField from './components/ImagePickerField';
-import SummaryCard from './components/SummaryCard';
+import StudentCard from './components/StudentCard';
 
 export default function App() {
   // Manejo de estado del formulario con useState
   const [formData, setFormData] = useState({
     nombre: '',
-    apellido: '',
-    cedula: '',
-    foto: null,
+    carrera: '',
+    imagenUrl: '',
   });
 
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
   const [submittedData, setSubmittedData] = useState(null);
 
-  // Actualizador genérico de campos
+  // Manejador genérico para actualizar campos
   const handleChange = (field, value) => {
     setFormData((prev) => ({
       ...prev,
@@ -54,30 +50,26 @@ export default function App() {
       newErrors.nombre = 'El nombre es obligatorio';
       isValid = false;
     } else if (formData.nombre.trim().length < 2) {
-      newErrors.nombre = 'El nombre debe tener al menos 2 caracteres';
+      newErrors.nombre = 'Debe tener al menos 2 caracteres';
       isValid = false;
     }
 
-    if (!formData.apellido.trim()) {
-      newErrors.apellido = 'El apellido es obligatorio';
+    if (!formData.carrera.trim()) {
+      newErrors.carrera = 'La carrera es obligatoria';
       isValid = false;
-    } else if (formData.apellido.trim().length < 2) {
-      newErrors.apellido = 'El apellido debe tener al menos 2 caracteres';
-      isValid = false;
-    }
-
-    // Validación de cédula (numérica / formato estándar)
-    const cedulaLimpia = formData.cedula.trim();
-    if (!cedulaLimpia) {
-      newErrors.cedula = 'La cédula es obligatoria';
-      isValid = false;
-    } else if (cedulaLimpia.length < 5) {
-      newErrors.cedula = 'La cédula debe tener al menos 5 dígitos';
+    } else if (formData.carrera.trim().length < 3) {
+      newErrors.carrera = 'Debe tener al menos 3 caracteres';
       isValid = false;
     }
 
-    if (!formData.foto) {
-      newErrors.foto = 'Debes cargar o tomar una fotografía';
+    const urlRegex = /^(https?:\/\/.*\.(?:png|jpg|jpeg|webp|svg|gif)(\?.*)?)$/i;
+    const isHttp = /^https?:\/\/.+/i;
+
+    if (!formData.imagenUrl.trim()) {
+      newErrors.imagenUrl = 'La URL de la imagen es obligatoria';
+      isValid = false;
+    } else if (!isHttp.test(formData.imagenUrl.trim())) {
+      newErrors.imagenUrl = 'Debe ser una URL válida (http:// o https://)';
       isValid = false;
     }
 
@@ -85,25 +77,32 @@ export default function App() {
     return isValid;
   };
 
-  // Envío del formulario
+  // Enviar formulario
   const handleSubmit = () => {
     if (!validateForm()) return;
 
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmittedData({ ...formData });
-      Alert.alert('¡Éxito!', 'Los datos y la imagen se guardaron en el estado.');
-    }, 1000);
+    setSubmittedData({ ...formData });
+    Alert.alert('¡Tarjeta Generada!', 'Los datos se han guardado en el estado.');
   };
 
-  // Restablecer formulario
+  // Cargar datos de ejemplo rápidos
+  const handleLoadDemo = () => {
+    const demoData = {
+      nombre: 'Elena Rodríguez',
+      carrera: 'Ingeniería en Sistemas',
+      imagenUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
+    };
+    setFormData(demoData);
+    setErrors({});
+    setSubmittedData(demoData);
+  };
+
+  // Limpiar formulario
   const handleReset = () => {
     setFormData({
       nombre: '',
-      apellido: '',
-      cedula: '',
-      foto: null,
+      carrera: '',
+      imagenUrl: '',
     });
     setErrors({});
     setSubmittedData(null);
@@ -124,16 +123,16 @@ export default function App() {
           <View style={styles.header}>
             <View style={styles.topBadge}>
               <View style={styles.liveIndicator} />
-              <Text style={styles.topBadgeText}>EXPO SNACK FORM</Text>
+              <Text style={styles.topBadgeText}>EXPO SNACK TEMPLATE</Text>
             </View>
 
             <View style={styles.iconCircle}>
-              <Ionicons name="id-card-outline" size={28} color="#4F46E5" />
+              <Ionicons name="id-card" size={28} color="#4F46E5" />
             </View>
 
-            <Text style={styles.title}>Registro de Identidad</Text>
+            <Text style={styles.title}>Ficha Estudiantil</Text>
             <Text style={styles.subtitle}>
-              Formulario con useState: Nombre, Apellido, Cédula y Carga de Imagen
+              Formulario reactivo con useState: Nombre, Carrera e Imagen por URL
             </Text>
           </View>
 
@@ -143,73 +142,67 @@ export default function App() {
             <FormInput
               label="Nombre"
               icon="person-outline"
-              placeholder="Ej. Juan"
+              placeholder="Ej. Juan Pérez"
               value={formData.nombre}
               onChangeText={(val) => handleChange('nombre', val)}
               error={errors.nombre}
             />
 
-            {/* Campo: Apellido */}
+            {/* Campo: Carrera */}
             <FormInput
-              label="Apellido"
-              icon="people-outline"
-              placeholder="Ej. Pérez"
-              value={formData.apellido}
-              onChangeText={(val) => handleChange('apellido', val)}
-              error={errors.apellido}
+              label="Carrera"
+              icon="school-outline"
+              placeholder="Ej. Ingeniería de Software"
+              value={formData.carrera}
+              onChangeText={(val) => handleChange('carrera', val)}
+              error={errors.carrera}
             />
 
-            {/* Campo: Cédula */}
+            {/* Campo: Imagen por URL */}
             <FormInput
-              label="Cédula de Identidad"
-              icon="card-outline"
-              placeholder="Ej. 12345678"
-              keyboardType="numeric"
-              maxLength={15}
+              label="Imagen por URL"
+              icon="image-outline"
+              placeholder="https://ejemplo.com/foto.jpg"
+              keyboardType="url"
               autoCapitalize="none"
-              value={formData.cedula}
-              onChangeText={(val) => handleChange('cedula', val)}
-              error={errors.cedula}
-            />
-
-            {/* Campo: Carga de Imagen */}
-            <ImagePickerField
-              imageUri={formData.foto}
-              onImageSelected={(uri) => handleChange('foto', uri)}
-              onImageRemoved={() => handleChange('foto', null)}
-              error={errors.foto}
+              value={formData.imagenUrl}
+              onChangeText={(val) => handleChange('imagenUrl', val)}
+              error={errors.imagenUrl}
             />
 
             {/* Botón de Enviar */}
             <TouchableOpacity
-              style={[styles.submitButton, loading ? styles.submitButtonDisabled : null]}
+              style={styles.submitButton}
               onPress={handleSubmit}
-              disabled={loading}
               activeOpacity={0.8}
             >
-              {loading ? (
-                <ActivityIndicator color="#FFFFFF" />
-              ) : (
-                <View style={styles.submitBtnContent}>
-                  <Ionicons name="checkmark-sharp" size={20} color="#FFFFFF" />
-                  <Text style={styles.submitButtonText}>Guardar Registro</Text>
-                </View>
-              )}
+              <Ionicons name="card-outline" size={20} color="#FFFFFF" />
+              <Text style={styles.submitButtonText}>Generar Tarjeta</Text>
             </TouchableOpacity>
 
-            {/* Botón Limpiar */}
-            <TouchableOpacity
-              style={styles.resetButton}
-              onPress={handleReset}
-              disabled={loading}
-              activeOpacity={0.7}
-            >
-              <Text style={styles.resetButtonText}>Limpiar Formulario</Text>
-            </TouchableOpacity>
+            {/* Fila de acciones secundarias */}
+            <View style={styles.actionRow}>
+              <TouchableOpacity
+                style={styles.demoButton}
+                onPress={handleLoadDemo}
+                activeOpacity={0.7}
+              >
+                <Ionicons name="sparkles-outline" size={16} color="#4F46E5" />
+                <Text style={styles.demoButtonText}>Cargar Ejemplo</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={styles.resetButton}
+                onPress={handleReset}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.resetButtonText}>Limpiar</Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
-          {/* Tarjeta con los Datos Guardados */}
-          <SummaryCard data={submittedData} />
+          {/* Tarjeta de visualización */}
+          <StudentCard data={submittedData} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -284,7 +277,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#64748B',
     textAlign: 'center',
-    maxWidth: 310,
+    maxWidth: 320,
     lineHeight: 18,
   },
   formCard: {
@@ -300,11 +293,13 @@ const styles = StyleSheet.create({
     borderColor: '#E2E8F0',
   },
   submitButton: {
+    flexDirection: 'row',
     backgroundColor: '#4F46E5',
     borderRadius: 14,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 8,
     marginTop: 6,
     shadowColor: '#4F46E5',
     shadowOffset: { width: 0, height: 4 },
@@ -312,23 +307,35 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
   },
-  submitButtonDisabled: {
-    opacity: 0.7,
-  },
-  submitBtnContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
   submitButtonText: {
     color: '#FFFFFF',
     fontSize: 15,
     fontWeight: '700',
   },
-  resetButton: {
-    marginTop: 12,
-    paddingVertical: 10,
+  actionRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    marginTop: 14,
+    paddingHorizontal: 4,
+  },
+  demoButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    backgroundColor: '#EEF2FF',
+    borderRadius: 10,
+  },
+  demoButtonText: {
+    color: '#4F46E5',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  resetButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
   },
   resetButtonText: {
     color: '#64748B',
