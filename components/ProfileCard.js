@@ -4,60 +4,33 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 export default function ProfileCard({ nombre, carrera, imagen }) {
   const {
     tarjeta,
-    portada,
-    portadaAcento,
-    portadaTexto,
+    franjaSuperior,
+    puntoEstado,
+    etiquetaSuperior,
     cuerpo,
-    marcoAvatar,
+    anilloFoto,
     foto,
-    badgeRol,
-    badgeRolTxt,
     nombreTxt,
+    pillCarrera,
     carreraTxt,
-    divisor,
-    filaMetricas,
-    colMetrica,
-    numMetrica,
-    labelMetrica,
-    colSeparador,
   } = styles;
 
   return (
     <View style={tarjeta}>
-      <View style={portada}>
-        <View style={portadaAcento} />
-        <Text style={portadaTexto}>ESTUDIANTE ACTIVO</Text>
+      <View style={franjaSuperior}>
+        <View style={puntoEstado} />
+        <Text style={etiquetaSuperior}>CREDENCIAL DIGITAL</Text>
       </View>
 
       <View style={cuerpo}>
-        <View style={marcoAvatar}>
+        <View style={anilloFoto}>
           <Image source={{ uri: imagen }} style={foto} resizeMode="cover" />
         </View>
 
-        <View style={badgeRol}>
-          <Text style={badgeRolTxt}>PERFIL UNIVERSITARIO</Text>
-        </View>
-
         <Text style={nombreTxt}>{nombre || 'Nombre del Estudiante'}</Text>
-        <Text style={carreraTxt}>{carrera || 'Carrera no definida'}</Text>
 
-        <View style={divisor} />
-
-        <View style={filaMetricas}>
-          <View style={colMetrica}>
-            <Text style={numMetrica}>2026</Text>
-            <Text style={labelMetrica}>PERIODO</Text>
-          </View>
-          <View style={colSeparador} />
-          <View style={colMetrica}>
-            <Text style={numMetrica}>REG</Text>
-            <Text style={labelMetrica}>MODALIDAD</Text>
-          </View>
-          <View style={colSeparador} />
-          <View style={colMetrica}>
-            <Text style={numMetrica}>V-1</Text>
-            <Text style={labelMetrica}>SEDE</Text>
-          </View>
+        <View style={pillCarrera}>
+          <Text style={carreraTxt}>{carrera || 'Carrera no definida'}</Text>
         </View>
       </View>
     </View>
@@ -67,78 +40,62 @@ export default function ProfileCard({ nombre, carrera, imagen }) {
 const styles = StyleSheet.create({
   tarjeta: {
     backgroundColor: '#0F172A',
-    borderRadius: 24,
+    borderRadius: 22,
+    borderWidth: 1.5,
+    borderColor: 'rgba(99, 102, 241, 0.3)',
     marginBottom: 20,
     overflow: 'hidden',
     shadowColor: '#4F46E5',
-    shadowOffset: { width: 0, height: 12 },
-    shadowOpacity: 0.25,
-    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.3,
+    shadowRadius: 18,
     elevation: 8,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.1)',
   },
-  portada: {
-    height: 70,
-    backgroundColor: '#1E1B4B',
+  franjaSuperior: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    gap: 8,
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    backgroundColor: 'rgba(99, 102, 241, 0.12)',
     borderBottomWidth: 1,
-    borderBottomColor: 'rgba(99, 102, 241, 0.2)',
+    borderBottomColor: 'rgba(255, 255, 255, 0.06)',
   },
-  portadaAcento: {
-    width: 32,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: '#6366F1',
+  puntoEstado: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+    backgroundColor: '#10B981',
   },
-  portadaTexto: {
+  etiquetaSuperior: {
     fontSize: 10,
     fontWeight: '800',
-    color: '#818CF8',
+    color: '#A5B4FC',
     letterSpacing: 1.5,
   },
   cuerpo: {
     alignItems: 'center',
+    paddingVertical: 24,
     paddingHorizontal: 20,
-    paddingBottom: 22,
   },
-  marcoAvatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginTop: -40,
+  anilloFoto: {
+    width: 106,
+    height: 106,
+    borderRadius: 53,
     padding: 3,
     backgroundColor: '#6366F1',
-    shadowColor: '#000',
+    shadowColor: '#6366F1',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowOpacity: 0.45,
+    shadowRadius: 10,
     elevation: 6,
+    marginBottom: 16,
   },
   foto: {
     width: '100%',
     height: '100%',
-    borderRadius: 47,
+    borderRadius: 50,
     backgroundColor: '#1E293B',
-  },
-  badgeRol: {
-    backgroundColor: 'rgba(99, 102, 241, 0.15)',
-    borderWidth: 1,
-    borderColor: 'rgba(99, 102, 241, 0.4)',
-    paddingVertical: 4,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    marginTop: 12,
-    marginBottom: 8,
-  },
-  badgeRolTxt: {
-    fontSize: 10,
-    fontWeight: '800',
-    color: '#A5B4FC',
-    letterSpacing: 1,
   },
   nombreTxt: {
     fontSize: 22,
@@ -146,46 +103,21 @@ const styles = StyleSheet.create({
     color: '#F8FAFC',
     textAlign: 'center',
     letterSpacing: -0.3,
-    marginBottom: 4,
+    marginBottom: 10,
+  },
+  pillCarrera: {
+    backgroundColor: 'rgba(99, 102, 241, 0.16)',
+    borderWidth: 1,
+    borderColor: 'rgba(99, 102, 241, 0.45)',
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: 20,
   },
   carreraTxt: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#94A3B8',
-    textAlign: 'center',
-  },
-  divisor: {
-    height: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
-    width: '100%',
-    marginVertical: 18,
-  },
-  filaMetricas: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  colMetrica: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  numMetrica: {
-    fontSize: 15,
-    fontWeight: '800',
-    color: '#E2E8F0',
-    letterSpacing: 0.5,
-  },
-  labelMetrica: {
-    fontSize: 9,
+    fontSize: 13,
     fontWeight: '700',
-    color: '#64748B',
-    letterSpacing: 1,
-    marginTop: 2,
-  },
-  colSeparador: {
-    width: 1,
-    height: 24,
-    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+    color: '#C7D2FE',
+    letterSpacing: 0.3,
+    textAlign: 'center',
   },
 });
