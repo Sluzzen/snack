@@ -12,10 +12,10 @@ import ProfileCard from './components/ProfileCard';
 import ProfileForm from './components/ProfileForm';
 
 export default function App() {
-  const [nombre, setNombre] = useState('Alexander Vance');
-  const [carrera, setCarrera] = useState('Ingeniería Aeroespacial');
+  const [nombre, setNombre] = useState('Juan Pérez');
+  const [carrera, setCarrera] = useState('Ingeniería de Sistemas');
   const [imagen, setImagen] = useState(
-    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'
+    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400'
   );
 
   const [inputNombre, setInputNombre] = useState(nombre);
@@ -37,7 +37,7 @@ export default function App() {
     }
 
     setImagen(url);
-    Alert.alert('Listo', 'Fotografía actualizada en la credencial.');
+    Alert.alert('Listo', 'La imagen de perfil se ha actualizado.');
   };
 
   const handleGuardar = () => {
@@ -53,12 +53,12 @@ export default function App() {
       setImagen(inputImagen.trim());
     }
 
-    Alert.alert('Éxito', 'La credencial se ha actualizado correctamente.');
+    Alert.alert('Éxito', 'Los datos del estudiante han sido guardados.');
   };
 
   return (
     <View style={contenedor}>
-      <StatusBar barStyle="light-content" backgroundColor="#090D16" />
+      <StatusBar barStyle="dark-content" backgroundColor="#f2f2f2" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={teclado}
@@ -92,14 +92,13 @@ export default function App() {
 const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
-    backgroundColor: '#090D16',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 24,
+    backgroundColor: '#f2f2f2',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 20,
   },
   teclado: {
     flex: 1,
   },
   scroll: {
-    paddingHorizontal: 18,
-    paddingBottom: 30,
+    padding: 16,
   },
 });
