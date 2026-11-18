@@ -13,116 +13,146 @@ export default function ProfileForm({
 }) {
   return (
     <View style={styles.formContainer}>
-      <Text style={styles.titulo}>Actualizar Datos</Text>
-
-      <Text style={styles.label}>Nombre:</Text>
-      <TextInput
-        style={styles.input}
-        value={inputNombre}
-        onChangeText={setInputNombre}
-        placeholder="Ingresa el nombre"
-        placeholderTextColor="#94A3B8"
-      />
-
-      <Text style={styles.label}>Carrera:</Text>
-      <TextInput
-        style={styles.input}
-        value={inputCarrera}
-        onChangeText={setInputCarrera}
-        placeholder="Ingresa la carrera"
-        placeholderTextColor="#94A3B8"
-      />
-
-      <Text style={styles.label}>URL de la Imagen:</Text>
-      <View style={styles.urlRow}>
-        <TextInput
-          style={[styles.input, styles.inputUrl]}
-          value={inputImagen}
-          onChangeText={setInputImagen}
-          placeholder="https://ejemplo.com/foto.jpg"
-          placeholderTextColor="#94A3B8"
-          autoCapitalize="none"
-          keyboardType="url"
-        />
-        <TouchableOpacity style={styles.botonUrl} onPress={onCargarImagen}>
-          <Text style={styles.textoBotonUrl}>Cargar</Text>
-        </TouchableOpacity>
+      <View style={styles.formHeader}>
+        <Text style={styles.formHeaderText}>FORMULARIO DE REGISTRO</Text>
       </View>
 
-      <TouchableOpacity style={styles.boton} onPress={onGuardar}>
-        <Text style={styles.textoBoton}>Guardar Cambios</Text>
-      </TouchableOpacity>
+      <View style={styles.formBody}>
+        <View style={styles.fieldBox}>
+          <Text style={styles.label}>NOMBRE COMPLETO</Text>
+          <TextInput
+            style={styles.input}
+            value={inputNombre}
+            onChangeText={setInputNombre}
+            placeholder="Ej. Juan Pérez"
+            placeholderTextColor="#9CA3AF"
+          />
+        </View>
+
+        <View style={styles.fieldBox}>
+          <Text style={styles.label}>CARRERA UNIVERSITARIA</Text>
+          <TextInput
+            style={styles.input}
+            value={inputCarrera}
+            onChangeText={setInputCarrera}
+            placeholder="Ej. Ingeniería de Sistemas"
+            placeholderTextColor="#9CA3AF"
+          />
+        </View>
+
+        <View style={styles.fieldBox}>
+          <Text style={styles.label}>IMAGEN POR URL</Text>
+          <View style={styles.urlRow}>
+            <TextInput
+              style={[styles.input, styles.inputUrl]}
+              value={inputImagen}
+              onChangeText={setInputImagen}
+              placeholder="https://ejemplo.com/foto.jpg"
+              placeholderTextColor="#9CA3AF"
+              autoCapitalize="none"
+              keyboardType="url"
+            />
+            <TouchableOpacity
+              style={styles.botonUrl}
+              onPress={onCargarImagen}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.textoBotonUrl}>CARGAR</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <TouchableOpacity
+          style={styles.submitBtn}
+          onPress={onGuardar}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.submitBtnText}>GUARDAR CAMBIOS</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   formContainer: {
+    borderWidth: 2,
+    borderColor: '#1F2937',
+    borderRadius: 8,
     backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#E2E8F0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
+    overflow: 'hidden',
   },
-  titulo: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#0F172A',
-    marginBottom: 16,
+  formHeader: {
+    backgroundColor: '#1F2937',
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    alignItems: 'center',
+  },
+  formHeaderText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 1,
+  },
+  formBody: {
+    padding: 16,
+  },
+  fieldBox: {
+    marginBottom: 14,
   },
   label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#334155',
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#1F2937',
     marginBottom: 6,
+    letterSpacing: 0.5,
   },
   input: {
-    backgroundColor: '#F8FAFC',
-    borderWidth: 1,
-    borderColor: '#CBD5E1',
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1.5,
+    borderColor: '#D1D5DB',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    height: 46,
     fontSize: 15,
-    color: '#0F172A',
-    marginBottom: 16,
+    color: '#111827',
   },
   urlRow: {
     flexDirection: 'row',
     gap: 10,
-    marginBottom: 16,
   },
   inputUrl: {
     flex: 1,
-    marginBottom: 0,
   },
   botonUrl: {
-    backgroundColor: '#0284C7',
-    borderRadius: 10,
+    backgroundColor: '#1F2937',
+    borderWidth: 1.5,
+    borderColor: '#111827',
+    borderRadius: 8,
     paddingHorizontal: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },
   textoBotonUrl: {
     color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: 'bold',
+    fontSize: 13,
+    fontWeight: '800',
+    letterSpacing: 0.5,
   },
-  boton: {
-    backgroundColor: '#4F46E5',
-    borderRadius: 10,
-    paddingVertical: 14,
+  submitBtn: {
+    backgroundColor: '#2563EB',
+    borderWidth: 1.5,
+    borderColor: '#1D4ED8',
+    borderRadius: 8,
+    height: 46,
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 6,
   },
-  textoBoton: {
+  submitBtnText: {
     color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 14,
+    fontWeight: '800',
+    letterSpacing: 0.5,
   },
 });

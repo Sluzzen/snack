@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  StatusBar,
 } from 'react-native';
 import ProfileCard from './components/ProfileCard';
 import ProfileForm from './components/ProfileForm';
@@ -24,22 +25,22 @@ export default function App() {
   const handleCargarImagen = () => {
     const url = inputImagen.trim();
     if (!url) {
-      Alert.alert('Atención', 'Ingresa una URL de imagen válida.');
+      Alert.alert('ATENCIÓN', 'Ingresa una URL de imagen válida.');
       return;
     }
 
     if (!/^https?:\/\/.+/i.test(url)) {
-      Alert.alert('Atención', 'La URL debe comenzar con http:// o https://');
+      Alert.alert('ATENCIÓN', 'La URL debe comenzar con http:// o https://');
       return;
     }
 
     setImagen(url);
-    Alert.alert('Imagen cargada', 'La imagen de perfil ha sido actualizada.');
+    Alert.alert('IMAGEN CARGADA', 'La fotografía se ha actualizado correctamente.');
   };
 
   const handleGuardar = () => {
     if (!inputNombre.trim() || !inputCarrera.trim()) {
-      Alert.alert('Atención', 'Por favor completa el nombre y la carrera.');
+      Alert.alert('ATENCIÓN', 'Por favor completa el nombre y la carrera.');
       return;
     }
 
@@ -50,11 +51,12 @@ export default function App() {
       setImagen(inputImagen.trim());
     }
 
-    Alert.alert('Éxito', 'Los datos del estudiante han sido actualizados.');
+    Alert.alert('ÉXITO', 'Datos del estudiante actualizados.');
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F3F4F6" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardContainer}
@@ -86,14 +88,16 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#F1F5F9',
+    backgroundColor: '#F3F4F6',
   },
   keyboardContainer: {
     flex: 1,
   },
   scrollContent: {
-    padding: 20,
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 32,
   },
 });
