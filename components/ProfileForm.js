@@ -6,7 +6,10 @@ export default function ProfileForm({
   setInputNombre,
   inputCarrera,
   setInputCarrera,
+  inputImagen,
+  setInputImagen,
   onGuardar,
+  onCargarImagen,
 }) {
   return (
     <View style={styles.formContainer}>
@@ -29,6 +32,22 @@ export default function ProfileForm({
         placeholder="Ingresa la carrera"
         placeholderTextColor="#94A3B8"
       />
+
+      <Text style={styles.label}>URL de la Imagen:</Text>
+      <View style={styles.urlRow}>
+        <TextInput
+          style={[styles.input, styles.inputUrl]}
+          value={inputImagen}
+          onChangeText={setInputImagen}
+          placeholder="https://ejemplo.com/foto.jpg"
+          placeholderTextColor="#94A3B8"
+          autoCapitalize="none"
+          keyboardType="url"
+        />
+        <TouchableOpacity style={styles.botonUrl} onPress={onCargarImagen}>
+          <Text style={styles.textoBotonUrl}>Cargar</Text>
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity style={styles.boton} onPress={onGuardar}>
         <Text style={styles.textoBoton}>Guardar Cambios</Text>
@@ -72,6 +91,27 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#0F172A',
     marginBottom: 16,
+  },
+  urlRow: {
+    flexDirection: 'row',
+    gap: 10,
+    marginBottom: 16,
+  },
+  inputUrl: {
+    flex: 1,
+    marginBottom: 0,
+  },
+  botonUrl: {
+    backgroundColor: '#0284C7',
+    borderRadius: 10,
+    paddingHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textoBotonUrl: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   boton: {
     backgroundColor: '#4F46E5',

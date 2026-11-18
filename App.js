@@ -19,15 +19,37 @@ export default function App() {
 
   const [inputNombre, setInputNombre] = useState(nombre);
   const [inputCarrera, setInputCarrera] = useState(carrera);
+  const [inputImagen, setInputImagen] = useState(imagen);
+
+  const handleCargarImagen = () => {
+    const url = inputImagen.trim();
+    if (!url) {
+      Alert.alert('Atención', 'Ingresa una URL de imagen válida.');
+      return;
+    }
+
+    if (!/^https?:\/\/.+/i.test(url)) {
+      Alert.alert('Atención', 'La URL debe comenzar con http:// o https://');
+      return;
+    }
+
+    setImagen(url);
+    Alert.alert('Imagen cargada', 'La imagen de perfil ha sido actualizada.');
+  };
 
   const handleGuardar = () => {
     if (!inputNombre.trim() || !inputCarrera.trim()) {
-      Alert.alert('Atención', 'Por favor completa todos los campos.');
+      Alert.alert('Atención', 'Por favor completa el nombre y la carrera.');
       return;
     }
 
     setNombre(inputNombre);
     setCarrera(inputCarrera);
+
+    if (inputImagen.trim() && /^https?:\/\/.+/i.test(inputImagen.trim())) {
+      setImagen(inputImagen.trim());
+    }
+
     Alert.alert('Éxito', 'Los datos del estudiante han sido actualizados.');
   };
 
@@ -52,7 +74,10 @@ export default function App() {
             setInputNombre={setInputNombre}
             inputCarrera={inputCarrera}
             setInputCarrera={setInputCarrera}
+            inputImagen={inputImagen}
+            setInputImagen={setInputImagen}
             onGuardar={handleGuardar}
+            onCargarImagen={handleCargarImagen}
           />
         </ScrollView>
       </KeyboardAvoidingView>
