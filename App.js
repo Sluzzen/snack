@@ -22,25 +22,27 @@ export default function App() {
   const [inputCarrera, setInputCarrera] = useState(carrera);
   const [inputImagen, setInputImagen] = useState(imagen);
 
+  const { pantalla, teclado, scroll } = styles;
+
   const handleCargarImagen = () => {
     const url = inputImagen.trim();
     if (!url) {
-      Alert.alert('ATENCIÓN', 'Ingresa una URL de imagen válida.');
+      Alert.alert('Atención', 'Ingresa una URL de imagen válida.');
       return;
     }
 
     if (!/^https?:\/\/.+/i.test(url)) {
-      Alert.alert('ATENCIÓN', 'La URL debe comenzar con http:// o https://');
+      Alert.alert('Atención', 'La URL debe comenzar con http:// o https://');
       return;
     }
 
     setImagen(url);
-    Alert.alert('IMAGEN CARGADA', 'La fotografía se ha actualizado correctamente.');
+    Alert.alert('Listo', 'La imagen de perfil se ha actualizado.');
   };
 
   const handleGuardar = () => {
     if (!inputNombre.trim() || !inputCarrera.trim()) {
-      Alert.alert('ATENCIÓN', 'Por favor completa el nombre y la carrera.');
+      Alert.alert('Atención', 'Por favor completa el nombre y la carrera.');
       return;
     }
 
@@ -51,18 +53,18 @@ export default function App() {
       setImagen(inputImagen.trim());
     }
 
-    Alert.alert('ÉXITO', 'Datos del estudiante actualizados.');
+    Alert.alert('Éxito', 'Los datos del estudiante han sido guardados.');
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F3F4F6" />
+    <SafeAreaView style={pantalla}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardContainer}
+        style={teclado}
       >
         <ScrollView
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={scroll}
           showsVerticalScrollIndicator={false}
         >
           <ProfileCard
@@ -88,16 +90,15 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
+  pantalla: {
     flex: 1,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#F8FAFC',
   },
-  keyboardContainer: {
+  teclado: {
     flex: 1,
   },
-  scrollContent: {
-    paddingHorizontal: 16,
-    paddingTop: 16,
-    paddingBottom: 32,
+  scroll: {
+    paddingHorizontal: 20,
+    paddingVertical: 24,
   },
 });
