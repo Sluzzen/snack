@@ -13,12 +13,15 @@ export default function ProfileForm({
 }) {
   const {
     formulario,
+    cabecera,
+    tagSeccion,
     titulo,
     subtitulo,
-    divisor,
     campo,
-    label,
-    input,
+    labelRow,
+    etiqueta,
+    etiquetaReq,
+    cajaInput,
     filaUrl,
     inputUrl,
     btnCargar,
@@ -29,15 +32,19 @@ export default function ProfileForm({
 
   return (
     <View style={formulario}>
-      <Text style={titulo}>Editar Perfil</Text>
-      <Text style={subtitulo}>Actualiza los datos del estudiante en tiempo real</Text>
-
-      <View style={divisor} />
+      <View style={cabecera}>
+        <Text style={tagSeccion}>FORMULARIO DE EDICIÓN</Text>
+        <Text style={titulo}>Actualizar Datos</Text>
+        <Text style={subtitulo}>Ingresa la información para sincronizar la tarjeta</Text>
+      </View>
 
       <View style={campo}>
-        <Text style={label}>NOMBRE COMPLETO</Text>
+        <View style={labelRow}>
+          <Text style={etiqueta}>NOMBRE COMPLETO</Text>
+          <Text style={etiquetaReq}>REQUERIDO</Text>
+        </View>
         <TextInput
-          style={input}
+          style={cajaInput}
           value={inputNombre}
           onChangeText={setInputNombre}
           placeholder="Ej. Juan Pérez"
@@ -46,9 +53,12 @@ export default function ProfileForm({
       </View>
 
       <View style={campo}>
-        <Text style={label}>CARRERA UNIVERSITARIA</Text>
+        <View style={labelRow}>
+          <Text style={etiqueta}>CARRERA UNIVERSITARIA</Text>
+          <Text style={etiquetaReq}>REQUERIDO</Text>
+        </View>
         <TextInput
-          style={input}
+          style={cajaInput}
           value={inputCarrera}
           onChangeText={setInputCarrera}
           placeholder="Ej. Ingeniería de Sistemas"
@@ -57,10 +67,12 @@ export default function ProfileForm({
       </View>
 
       <View style={campo}>
-        <Text style={label}>ENLACE DE IMAGEN (URL)</Text>
+        <View style={labelRow}>
+          <Text style={etiqueta}>URL DE LA FOTOGRAFÍA</Text>
+        </View>
         <View style={filaUrl}>
           <TextInput
-            style={[input, inputUrl]}
+            style={[cajaInput, inputUrl]}
             value={inputImagen}
             onChangeText={setInputImagen}
             placeholder="https://ejemplo.com/foto.jpg"
@@ -73,7 +85,7 @@ export default function ProfileForm({
             onPress={onCargarImagen}
             activeOpacity={0.8}
           >
-            <Text style={btnCargarTxt}>Cargar</Text>
+            <Text style={btnCargarTxt}>CARGAR</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -83,7 +95,7 @@ export default function ProfileForm({
         onPress={onGuardar}
         activeOpacity={0.85}
       >
-        <Text style={btnGuardarTxt}>Guardar Cambios</Text>
+        <Text style={btnGuardarTxt}>GUARDAR CAMBIOS</Text>
       </TouchableOpacity>
     </View>
   );
@@ -92,50 +104,71 @@ export default function ProfileForm({
 const styles = StyleSheet.create({
   formulario: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    padding: 22,
-    borderWidth: 1,
+    borderRadius: 24,
+    padding: 24,
+    borderWidth: 1.5,
     borderColor: '#E2E8F0',
     shadowColor: '#1E293B',
-    shadowOffset: { width: 0, height: 6 },
+    shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.08,
-    shadowRadius: 16,
-    elevation: 4,
+    shadowRadius: 18,
+    elevation: 5,
+  },
+  cabecera: {
+    marginBottom: 20,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F1F5F9',
+  },
+  tagSeccion: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#2563EB',
+    letterSpacing: 1.2,
+    marginBottom: 4,
   },
   titulo: {
-    fontSize: 18,
-    fontWeight: '800',
+    fontSize: 20,
+    fontWeight: '900',
     color: '#0F172A',
+    letterSpacing: -0.3,
     marginBottom: 4,
   },
   subtitulo: {
-    fontSize: 13,
+    fontSize: 12,
+    fontWeight: '500',
     color: '#64748B',
-    marginBottom: 16,
-  },
-  divisor: {
-    height: 1,
-    backgroundColor: '#F1F5F9',
-    marginBottom: 16,
   },
   campo: {
-    marginBottom: 14,
+    marginBottom: 16,
   },
-  label: {
+  labelRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  etiqueta: {
     fontSize: 11,
-    fontWeight: '700',
-    color: '#475569',
-    letterSpacing: 0.6,
-    marginBottom: 6,
+    fontWeight: '800',
+    color: '#334155',
+    letterSpacing: 0.5,
   },
-  input: {
+  etiquetaReq: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#2563EB',
+    letterSpacing: 0.5,
+  },
+  cajaInput: {
     backgroundColor: '#F8FAFC',
     borderWidth: 1.5,
-    borderColor: '#E2E8F0',
-    borderRadius: 12,
-    paddingHorizontal: 14,
-    height: 48,
+    borderColor: '#CBD5E1',
+    borderRadius: 14,
+    paddingHorizontal: 16,
+    height: 50,
     fontSize: 14,
+    fontWeight: '600',
     color: '#0F172A',
   },
   filaUrl: {
@@ -146,35 +179,35 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btnCargar: {
-    backgroundColor: '#EFF6FF',
-    borderWidth: 1.5,
-    borderColor: '#BFDBFE',
-    borderRadius: 12,
-    paddingHorizontal: 16,
+    backgroundColor: '#1E40AF',
+    borderRadius: 14,
+    paddingHorizontal: 18,
     justifyContent: 'center',
     alignItems: 'center',
   },
   btnCargarTxt: {
-    color: '#1D4ED8',
-    fontSize: 13,
-    fontWeight: '700',
+    color: '#FFFFFF',
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1,
   },
   btnGuardar: {
     backgroundColor: '#2563EB',
-    borderRadius: 12,
-    height: 50,
+    borderRadius: 14,
+    height: 52,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 10,
     shadowColor: '#2563EB',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.35,
+    shadowRadius: 10,
+    elevation: 4,
   },
   btnGuardarTxt: {
     color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: '700',
+    fontSize: 14,
+    fontWeight: '800',
+    letterSpacing: 1,
   },
 });
