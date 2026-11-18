@@ -58,7 +58,7 @@ export default function App() {
 
   return (
     <View style={contenedor}>
-      <StatusBar barStyle="dark-content" backgroundColor="#f2f2f2" />
+      <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={teclado}
@@ -92,13 +92,14 @@ export default function App() {
 const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#F8FAFC',
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 20,
   },
   teclado: {
     flex: 1,
   },
   scroll: {
-    padding: 16,
+    paddingHorizontal: 20,
+    paddingVertical: 24,
   },
 });
