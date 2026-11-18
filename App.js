@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   StyleSheet,
-  SafeAreaView,
+  View,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
@@ -12,17 +12,17 @@ import ProfileCard from './components/ProfileCard';
 import ProfileForm from './components/ProfileForm';
 
 export default function App() {
-  const [nombre, setNombre] = useState('Juan Pérez');
-  const [carrera, setCarrera] = useState('Ingeniería de Sistemas');
+  const [nombre, setNombre] = useState('Alexander Vance');
+  const [carrera, setCarrera] = useState('Ingeniería Aeroespacial');
   const [imagen, setImagen] = useState(
-    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400'
+    'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400'
   );
 
   const [inputNombre, setInputNombre] = useState(nombre);
   const [inputCarrera, setInputCarrera] = useState(carrera);
   const [inputImagen, setInputImagen] = useState(imagen);
 
-  const { pantalla, teclado, scroll } = styles;
+  const { contenedor, teclado, scroll } = styles;
 
   const handleCargarImagen = () => {
     const url = inputImagen.trim();
@@ -37,7 +37,7 @@ export default function App() {
     }
 
     setImagen(url);
-    Alert.alert('Listo', 'La imagen de perfil se ha actualizado.');
+    Alert.alert('Listo', 'Fotografía actualizada en la credencial.');
   };
 
   const handleGuardar = () => {
@@ -53,12 +53,12 @@ export default function App() {
       setImagen(inputImagen.trim());
     }
 
-    Alert.alert('Éxito', 'Los datos del estudiante han sido guardados.');
+    Alert.alert('Éxito', 'La credencial se ha actualizado correctamente.');
   };
 
   return (
-    <SafeAreaView style={pantalla}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F8FAFC" />
+    <View style={contenedor}>
+      <StatusBar barStyle="light-content" backgroundColor="#090D16" />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={teclado}
@@ -85,20 +85,21 @@ export default function App() {
           />
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  pantalla: {
+  contenedor: {
     flex: 1,
-    backgroundColor: '#F8FAFC',
+    backgroundColor: '#090D16',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 24,
   },
   teclado: {
     flex: 1,
   },
   scroll: {
-    paddingHorizontal: 20,
-    paddingVertical: 24,
+    paddingHorizontal: 18,
+    paddingBottom: 30,
   },
 });

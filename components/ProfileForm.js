@@ -12,63 +12,68 @@ export default function ProfileForm({
   onCargarImagen,
 }) {
   const {
-    form,
-    titulo,
-    grupo,
-    label,
-    input,
+    formulario,
+    cabeceraForm,
+    indicador,
+    tituloForm,
+    bloqueCampo,
+    etiqueta,
+    cajaInput,
     filaUrl,
     inputUrl,
-    btnUrl,
-    btnUrlTxt,
+    btnCargar,
+    btnCargarTxt,
     btnGuardar,
     btnGuardarTxt,
   } = styles;
 
   return (
-    <View style={form}>
-      <Text style={titulo}>Editar Perfil</Text>
+    <View style={formulario}>
+      <View style={cabeceraForm}>
+        <View style={indicador} />
+        <Text style={tituloForm}>MODIFICAR INFORMACIÓN</Text>
+      </View>
 
-      <View style={grupo}>
-        <Text style={label}>NOMBRE</Text>
+      <View style={bloqueCampo}>
+        <Text style={etiqueta}>NOMBRE COMPLETO</Text>
         <TextInput
-          style={input}
+          style={cajaInput}
           value={inputNombre}
           onChangeText={setInputNombre}
           placeholder="Ej. Juan Pérez"
-          placeholderTextColor="#94A3B8"
+          placeholderTextColor="#475569"
         />
       </View>
 
-      <View style={grupo}>
-        <Text style={label}>CARRERA</Text>
+      <View style={bloqueCampo}>
+        <Text style={etiqueta}>CARRERA UNIVERSITARIA</Text>
         <TextInput
-          style={input}
+          style={cajaInput}
           value={inputCarrera}
           onChangeText={setInputCarrera}
-          placeholder="Ej. Ingeniería de Sistemas"
-          placeholderTextColor="#94A3B8"
+          placeholder="Ej. Ingeniería de Software"
+          placeholderTextColor="#475569"
         />
       </View>
 
-      <View style={grupo}>
-        <Text style={label}>URL DE LA FOTO</Text>
+      <View style={bloqueCampo}>
+        <Text style={etiqueta}>ENLACE DE FOTOGRAFÍA (URL)</Text>
         <View style={filaUrl}>
           <TextInput
-            style={[input, inputUrl]}
+            style={[cajaInput, inputUrl]}
             value={inputImagen}
             onChangeText={setInputImagen}
             placeholder="https://ejemplo.com/foto.jpg"
-            placeholderTextColor="#94A3B8"
+            placeholderTextColor="#475569"
             autoCapitalize="none"
             keyboardType="url"
           />
           <TouchableOpacity
-            style={btnUrl}
+            style={btnCargar}
             onPress={onCargarImagen}
             activeOpacity={0.8}
           >
-            <Text style={btnUrlTxt}>Cargar</Text>
+            <Text style={btnCargarTxt}>CARGAR</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -76,52 +81,68 @@ export default function ProfileForm({
       <TouchableOpacity
         style={btnGuardar}
         onPress={onGuardar}
-        activeOpacity={0.8}
+        activeOpacity={0.85}
       >
-        <Text style={btnGuardarTxt}>Guardar Cambios</Text>
+        <Text style={btnGuardarTxt}>ACTUALIZAR CREDENCIAL</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  form: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
+  formulario: {
+    backgroundColor: '#0F172A',
+    borderRadius: 24,
     padding: 22,
     borderWidth: 1,
-    borderColor: '#E2E8F0',
-    shadowColor: '#64748B',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.06,
-    shadowRadius: 14,
-    elevation: 3,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.2,
+    shadowRadius: 16,
+    elevation: 6,
   },
-  titulo: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#0F172A',
-    marginBottom: 18,
+  cabeceraForm: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 20,
+    paddingBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.08)',
   },
-  grupo: {
-    marginBottom: 14,
+  indicador: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: '#10B981',
   },
-  label: {
+  tituloForm: {
     fontSize: 11,
-    fontWeight: '700',
-    color: '#64748B',
-    letterSpacing: 0.6,
-    marginBottom: 6,
+    fontWeight: '800',
+    color: '#94A3B8',
+    letterSpacing: 1.5,
   },
-  input: {
-    backgroundColor: '#F8FAFC',
-    borderWidth: 1.5,
-    borderColor: '#E2E8F0',
-    borderRadius: 12,
-    paddingHorizontal: 14,
-    height: 48,
+  bloqueCampo: {
+    marginBottom: 16,
+  },
+  etiqueta: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#818CF8',
+    letterSpacing: 1,
+    marginBottom: 8,
+  },
+  cajaInput: {
+    backgroundColor: '#1E293B',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: 14,
+    paddingHorizontal: 16,
+    height: 50,
     fontSize: 14,
-    color: '#0F172A',
+    fontWeight: '600',
+    color: '#F8FAFC',
   },
   filaUrl: {
     flexDirection: 'row',
@@ -130,36 +151,38 @@ const styles = StyleSheet.create({
   inputUrl: {
     flex: 1,
   },
-  btnUrl: {
-    backgroundColor: '#EEF2FF',
-    borderWidth: 1.5,
-    borderColor: '#C7D2FE',
-    borderRadius: 12,
-    paddingHorizontal: 16,
+  btnCargar: {
+    backgroundColor: '#312E81',
+    borderWidth: 1,
+    borderColor: '#4F46E5',
+    borderRadius: 14,
+    paddingHorizontal: 18,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  btnUrlTxt: {
-    color: '#4F46E5',
-    fontSize: 13,
-    fontWeight: '700',
+  btnCargarTxt: {
+    color: '#A5B4FC',
+    fontSize: 11,
+    fontWeight: '800',
+    letterSpacing: 1,
   },
   btnGuardar: {
     backgroundColor: '#4F46E5',
-    borderRadius: 12,
-    height: 50,
+    borderRadius: 14,
+    height: 52,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 8,
     shadowColor: '#4F46E5',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.4,
+    shadowRadius: 12,
+    elevation: 4,
   },
   btnGuardarTxt: {
     color: '#FFFFFF',
-    fontSize: 15,
-    fontWeight: '700',
+    fontSize: 13,
+    fontWeight: '800',
+    letterSpacing: 1.2,
   },
 });
